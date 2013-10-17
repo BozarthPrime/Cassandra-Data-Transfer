@@ -1,8 +1,8 @@
-Cassandra-Data-Transfer
+Cassandra Data Transfer
 =======================
-
-Author: Joseph Bozarth
+Author: Joseph Bozarth,
 Date Created: 10-16-2013
+
 ---------------------------
 
 This application makes use of the Datastax C# Appache Cassandra API
