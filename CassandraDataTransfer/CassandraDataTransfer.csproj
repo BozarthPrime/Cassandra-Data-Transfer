@@ -34,13 +34,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Cassandra, Version=1.0.0.0, Culture=neutral, PublicKeyToken=dcbfab9f1e5ea9a7, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\Cassandra.dll</HintPath>
+    <Reference Include="Cassandra">
+      <HintPath>bin\Cassandra.dll</HintPath>
     </Reference>
-    <Reference Include="Cassandra.Data, Version=1.0.0.0, Culture=neutral, PublicKeyToken=dcbfab9f1e5ea9a7, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\Cassandra.Data.dll</HintPath>
+    <Reference Include="Cassandra.Data">
+      <HintPath>bin\Cassandra.Data.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
