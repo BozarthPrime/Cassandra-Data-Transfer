@@ -3,20 +3,18 @@ Cassandra Data Transfer
 Author: Joseph Bozarth,
 Date Created: 10-16-2013
 
-Description
+Overview
 ---------------------------
 
-This application makes use of the Datastax C# Appache Cassandra API
-and is meant to be used to transfer data between cassandra instances and tables.
-For example one might need to move data between a development and a production
-enviroment or you might want to move data within the same instance of cassandra
-between two key spaces one of which is a development version and the other a
-production version.
-  
-The version of the Datastax api that is being used is a modified version. The current
-main branch does not support connecting to multiple databases but this was a simple
-fix that I implemented in a branch of the github. This source code can be found
-here: https://github.com/BozarthPrime/csharp-driver
+This application is meant to facilitate the movement of data from one instance
+of Cassandra to another, say from development to QA or production, and/or from one
+column family to another, say you have a backup table or something of the kin.
+
+I am making use of the C# Cassandra API from Datastax but it is a modified version.
+I have added support for the retrival and insertion of dynamics and dictionaries as
+well as fixed an issue with connecting to multiple databases that currently exsists
+in the master branch of the project. My source code for that can be found on my
+GitHub page here https://github.com/BozarthPrime/csharp-driver.
 
 
 License
