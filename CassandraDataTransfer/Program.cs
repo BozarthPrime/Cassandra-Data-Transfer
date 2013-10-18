@@ -12,6 +12,20 @@
 //See the License for the specific language governing permissions and
 //limitations under the License. 
 
+/*
+ * Author: Joseph Bozarth
+ * Date Created: 10-16-2013
+ * Description: This application makes use of the Datastax C# Appache Cassandra API
+ *  and is meant to be used to transfer data between cassandra instances and/or tables.
+ *  For example one might need to move data between a development and a production
+ *  enviroment.
+ *  
+ *  The version of the Datastax api that is being used is a modified version. The current
+ *  main branch does not support connecting to multiple databases but this was a simple
+ *  fix that I implemented in a branch of the github. This source code can be found
+ *  here: https://github.com/BozarthPrime/csharp-driver
+ */
+
 using System;
 using System.Data;
 using System.Collections.Generic;
@@ -44,14 +58,24 @@ namespace CassandraDataTransfer
         /// <param name="destSvr">ip or the host name of the destination database</param>
         /// <param name="destKeySp">name of the keyspace to use for the destination insert</param>
         /// <param name="destClmFam">name of the column family to insert the source data into</param>
-        public static void TransferData(string sourceSvr, string sourceKeySp, string sourceQry, string destSvr, string destKeySp, string destClmFam)
+        public static TransferResultsInfo TransferData(string sourceSvr, string sourceKeySp, string sourceQry, string destSvr, string destKeySp, string destClmFam)
         {
+            TransferResultsInfo info = new TransferResultsInfo(); 
             List<dynamic> sourceData;
             bool gotSourceData;
-            GetSourceData(sourceSvr, sourceKeySp, sourceQry, out gotSourceData, out sourceData);
+            GetSourceData(sourceSvr, sourceKeySp, sourceQry, info, out gotSourceData, out sourceData);
 
             if (gotSourceData)
-                InsertIntoDest(destSvr, destKeySp, destClmFam, sourceData);
+            {
+                InsertIntoDest(destSvr, destKeySp, destClmFam, sourceData, info);
+
+                info.Message = string.Format("Sucess!\r\n\r\nSource Count: {0}\r\nOrigional Destination Count: {1}\r\nAfter Destination Count: {2}", 
+                                    info.SourceCount, 
+                                    info.OriginalDestCount, 
+                                    info.AfterDestCount);
+            }
+
+            return info;
         }
 
         /// <summary>
@@ -62,7 +86,7 @@ namespace CassandraDataTransfer
         /// <param name="query">query to get source data</param>
         /// <param name="gotSourceData">Data retrieved</param>
         /// <param name="sourceData">indicator of if an error was thrown</param>
-        private static void GetSourceData(string server, string keyspace, string query, out bool gotSourceData, out List<dynamic> sourceData)
+        private static void GetSourceData(string server, string keyspace, string query, TransferResultsInfo info, out bool gotSourceData, out List<dynamic> sourceData)
         {
             sourceData = new List<dynamic>();
             gotSourceData = true;
@@ -80,7 +104,7 @@ namespace CassandraDataTransfer
 
                 sourceData = srcCmd.ExecuteDynamics();
 
-                srcCmd.Connection.Close();
+                info.SourceCount = sourceData.Count;
 
                 //cleanup
                 srcCmd.Connection.Close();
@@ -89,7 +113,7 @@ namespace CassandraDataTransfer
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error getting source data: \r\n" + ex.Message);
+                info.Message = "Error getting source data: \r\n" + ex.Message;
                 gotSourceData = false;
             }
         }
@@ -101,7 +125,7 @@ namespace CassandraDataTransfer
         /// <param name="keyspace">name of the keyspace to use for the insert</param>
         /// <param name="columnFamily">name of the column family for the insert</param>
         /// <param name="sourceData">data retrieved from the source</param>
-        private static void InsertIntoDest(string server, string keyspace, string columnFamily, List<dynamic> sourceData)
+        private static void InsertIntoDest(string server, string keyspace, string columnFamily, List<dynamic> sourceData, TransferResultsInfo info)
         {
             try
             {
@@ -112,7 +136,13 @@ namespace CassandraDataTransfer
                 destConn.ChangeDatabase(keyspace);
                 destCmd.Connection = destConn;
 
+                destCmd.CommandText = "SELECT COUNT(*) FROM " + columnFamily;
+                info.OriginalDestCount = Convert.ToInt32(destCmd.ExecuteScalar());
+
                 destCmd.InsertDynamicList(sourceData, columnFamily);
+
+                destCmd.CommandText = "SELECT COUNT(*) FROM " + columnFamily;
+                info.AfterDestCount = Convert.ToInt32(destCmd.ExecuteScalar());
 
                 //cleanup
                 destCmd.Connection.Close();
@@ -121,7 +151,7 @@ namespace CassandraDataTransfer
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error writting to destination: \r\n" + ex.Message);
+                info.Message = "Error writting to destination: \r\n" + ex.Message;
             }
         }
     }

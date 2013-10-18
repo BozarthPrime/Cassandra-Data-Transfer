@@ -43,7 +43,7 @@
             this.DestSvr = new System.Windows.Forms.TextBox();
             this.DestSvrLbl = new System.Windows.Forms.Label();
             this.StartBtn = new System.Windows.Forms.Button();
-            this.ProcessingLbl = new System.Windows.Forms.Label();
+            this.ProgressBar = new System.Windows.Forms.ProgressBar();
             this.SourceBox.SuspendLayout();
             this.DestinationBox.SuspendLayout();
             this.SuspendLayout();
@@ -185,22 +185,22 @@
             this.StartBtn.UseVisualStyleBackColor = true;
             this.StartBtn.Click += new System.EventHandler(this.StartBtn_Click);
             // 
-            // ProcessingLbl
+            // ProgressBar
             // 
-            this.ProcessingLbl.AutoSize = true;
-            this.ProcessingLbl.Location = new System.Drawing.Point(505, 220);
-            this.ProcessingLbl.Name = "ProcessingLbl";
-            this.ProcessingLbl.Size = new System.Drawing.Size(68, 13);
-            this.ProcessingLbl.TabIndex = 7;
-            this.ProcessingLbl.Text = "Processing...";
-            this.ProcessingLbl.Visible = false;
+            this.ProgressBar.Location = new System.Drawing.Point(440, 215);
+            this.ProgressBar.MarqueeAnimationSpeed = 50;
+            this.ProgressBar.Name = "ProgressBar";
+            this.ProgressBar.Size = new System.Drawing.Size(133, 23);
+            this.ProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
+            this.ProgressBar.TabIndex = 8;
+            this.ProgressBar.Visible = false;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(680, 251);
-            this.Controls.Add(this.ProcessingLbl);
+            this.Controls.Add(this.ProgressBar);
             this.Controls.Add(this.StartBtn);
             this.Controls.Add(this.DestinationBox);
             this.Controls.Add(this.SourceBox);
@@ -212,7 +212,6 @@
             this.DestinationBox.ResumeLayout(false);
             this.DestinationBox.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -233,7 +232,7 @@
         private System.Windows.Forms.TextBox DestSvr;
         private System.Windows.Forms.Label DestSvrLbl;
         private System.Windows.Forms.Button StartBtn;
-        private System.Windows.Forms.Label ProcessingLbl;
+        private System.Windows.Forms.ProgressBar ProgressBar;
     }
 }
 
