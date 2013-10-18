@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.SourceQry = new System.Windows.Forms.RichTextBox();
-            this.SourceSvr = new System.Windows.Forms.TextBox();
             this.SourceSvrLbl = new System.Windows.Forms.Label();
             this.SourceQryLbl = new System.Windows.Forms.Label();
             this.SourceBox = new System.Windows.Forms.GroupBox();
@@ -40,10 +39,11 @@
             this.DestClmFamLbl = new System.Windows.Forms.Label();
             this.DestKeySp = new System.Windows.Forms.TextBox();
             this.DestKeySpLbl = new System.Windows.Forms.Label();
-            this.DestSvr = new System.Windows.Forms.TextBox();
             this.DestSvrLbl = new System.Windows.Forms.Label();
             this.StartBtn = new System.Windows.Forms.Button();
             this.ProgressBar = new System.Windows.Forms.ProgressBar();
+            this.SourceSvr = new System.Windows.Forms.ComboBox();
+            this.DestSvr = new System.Windows.Forms.ComboBox();
             this.SourceBox.SuspendLayout();
             this.DestinationBox.SuspendLayout();
             this.SuspendLayout();
@@ -55,13 +55,6 @@
             this.SourceQry.Size = new System.Drawing.Size(407, 117);
             this.SourceQry.TabIndex = 3;
             this.SourceQry.Text = "";
-            // 
-            // SourceSvr
-            // 
-            this.SourceSvr.Location = new System.Drawing.Point(9, 32);
-            this.SourceSvr.Name = "SourceSvr";
-            this.SourceSvr.Size = new System.Drawing.Size(179, 20);
-            this.SourceSvr.TabIndex = 1;
             // 
             // SourceSvrLbl
             // 
@@ -83,9 +76,9 @@
             // 
             // SourceBox
             // 
+            this.SourceBox.Controls.Add(this.SourceSvr);
             this.SourceBox.Controls.Add(this.SourceKeySp);
             this.SourceBox.Controls.Add(this.SourceKeySpLbl);
-            this.SourceBox.Controls.Add(this.SourceSvr);
             this.SourceBox.Controls.Add(this.SourceQry);
             this.SourceBox.Controls.Add(this.SourceQryLbl);
             this.SourceBox.Controls.Add(this.SourceSvrLbl);
@@ -114,11 +107,11 @@
             // 
             // DestinationBox
             // 
+            this.DestinationBox.Controls.Add(this.DestSvr);
             this.DestinationBox.Controls.Add(this.DestClmFam);
             this.DestinationBox.Controls.Add(this.DestClmFamLbl);
             this.DestinationBox.Controls.Add(this.DestKeySp);
             this.DestinationBox.Controls.Add(this.DestKeySpLbl);
-            this.DestinationBox.Controls.Add(this.DestSvr);
             this.DestinationBox.Controls.Add(this.DestSvrLbl);
             this.DestinationBox.Location = new System.Drawing.Point(440, 12);
             this.DestinationBox.Name = "DestinationBox";
@@ -159,13 +152,6 @@
             this.DestKeySpLbl.TabIndex = 2;
             this.DestKeySpLbl.Text = "Keyspace:";
             // 
-            // DestSvr
-            // 
-            this.DestSvr.Location = new System.Drawing.Point(7, 31);
-            this.DestSvr.Name = "DestSvr";
-            this.DestSvr.Size = new System.Drawing.Size(208, 20);
-            this.DestSvr.TabIndex = 4;
-            // 
             // DestSvrLbl
             // 
             this.DestSvrLbl.AutoSize = true;
@@ -195,6 +181,24 @@
             this.ProgressBar.TabIndex = 8;
             this.ProgressBar.Visible = false;
             // 
+            // SourceSvr
+            // 
+            this.SourceSvr.FormattingEnabled = true;
+            this.SourceSvr.Location = new System.Drawing.Point(9, 30);
+            this.SourceSvr.Name = "SourceSvr";
+            this.SourceSvr.Size = new System.Drawing.Size(179, 21);
+            this.SourceSvr.TabIndex = 1;
+            this.SourceSvr.Leave += new System.EventHandler(this.SourceSvr_Leave);
+            // 
+            // DestSvr
+            // 
+            this.DestSvr.FormattingEnabled = true;
+            this.DestSvr.Location = new System.Drawing.Point(6, 30);
+            this.DestSvr.Name = "DestSvr";
+            this.DestSvr.Size = new System.Drawing.Size(208, 21);
+            this.DestSvr.TabIndex = 4;
+            this.DestSvr.Leave += new System.EventHandler(this.DestSvr_Leave);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -218,7 +222,6 @@
         #endregion
 
         private System.Windows.Forms.RichTextBox SourceQry;
-        private System.Windows.Forms.TextBox SourceSvr;
         private System.Windows.Forms.Label SourceSvrLbl;
         private System.Windows.Forms.Label SourceQryLbl;
         private System.Windows.Forms.GroupBox SourceBox;
@@ -229,10 +232,11 @@
         private System.Windows.Forms.Label DestClmFamLbl;
         private System.Windows.Forms.TextBox DestKeySp;
         private System.Windows.Forms.Label DestKeySpLbl;
-        private System.Windows.Forms.TextBox DestSvr;
         private System.Windows.Forms.Label DestSvrLbl;
         private System.Windows.Forms.Button StartBtn;
         private System.Windows.Forms.ProgressBar ProgressBar;
+        private System.Windows.Forms.ComboBox SourceSvr;
+        private System.Windows.Forms.ComboBox DestSvr;
     }
 }
 

@@ -58,5 +58,23 @@ namespace CassandraDataTransfer
             StartBtn.Enabled = true;
             
         }
+
+        private void SourceSvr_Leave(object sender, EventArgs e)
+        {
+            if (!SourceSvr.Items.Contains(SourceSvr.Text.ToLower()))
+                SourceSvr.Items.Add(SourceSvr.Text.ToLower());
+
+            if (!DestSvr.Items.Contains(SourceSvr.Text.ToLower()))
+                DestSvr.Items.Add(SourceSvr.Text.ToLower());
+        }
+
+        private void DestSvr_Leave(object sender, EventArgs e)
+        {
+            if (!SourceSvr.Items.Contains(DestSvr.Text.ToLower()))
+                SourceSvr.Items.Add(DestSvr.Text.ToLower());
+
+            if (!DestSvr.Items.Contains(DestSvr.Text.ToLower()))
+                DestSvr.Items.Add(DestSvr.Text.ToLower());
+        }
     }
 }
